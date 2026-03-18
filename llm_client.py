@@ -79,6 +79,12 @@ def create_agent_chat(tools: list, system_instruction: str) -> object:
     conversation history is preserved across rerenders within a session.
     """
     client = _get_client()
+    # Store the client directly in Streamlit session state so it is never
+    # garbage-collected while the chat session is alive.  Using an attribute
+    # on the chat object is not reliable because Streamlit's rerun cycle can
+    # cause the GC to collect the client, closing the underlying HTTP
+    # connection and raising "Cannot send a request, as the client has been closed."
+    st.session_state["_advisor_gemini_client"] = client
     chat = client.chats.create(
         model=MODEL,
         config=types.GenerateContentConfig(
@@ -90,7 +96,4 @@ def create_agent_chat(tools: list, system_instruction: str) -> object:
             ),
         ),
     )
-    # Keep a strong reference to the client on the chat object so Python's GC
-    # doesn't close the underlying HTTP connection while the chat is in use.
-    chat._parent_client_ref = client
     return chat

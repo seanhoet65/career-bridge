@@ -1082,7 +1082,7 @@ with tab_advisor:
 
         st.markdown("<hr>", unsafe_allow_html=True)
         if st.button("Reset conversation", key="reset_advisor"):
-            for k in ["advisor_messages", "advisor_chat", "advisor_tool_trace"]:
+            for k in ["advisor_messages", "advisor_chat", "advisor_tool_trace", "_advisor_gemini_client"]:
                 st.session_state.pop(k, None)
             st.rerun()
 
