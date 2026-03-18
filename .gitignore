@@ -1,0 +1,28 @@
+# Secrets — never commit
+.streamlit/secrets.toml
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Large data files — downloaded by setup_data.py at runtime
+Skills.txt
+Occupation Data.txt
+data/
+
+# Large media files
+*.mov
+*.mp4
+
+# Submission / local-only files
+career_bridge_submission.docx
+career_bridge_source_code.txt
+MASTER_PROMPT_FOR_CLAUDE.md
+Sean_Hoet_BA_txt.txt
+
+# macOS
+.DS_Store
+*.localized
