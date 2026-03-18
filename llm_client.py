@@ -36,8 +36,8 @@ def _clean_json(raw: str) -> str:
 
 # ── Core call wrappers ────────────────────────────────────────────────────────
 
-# gemini-2.0-flash-lite: stable model with full function-calling support
-MODEL = "gemini-2.0-flash-lite"
+# gemini-2.5-flash-lite: recommended model for new users (2.0-flash retired March 2026)
+MODEL = "gemini-2.5-flash-lite"
 
 
 def simple_call(prompt: str) -> str:
