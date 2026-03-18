@@ -36,8 +36,8 @@ def _clean_json(raw: str) -> str:
 
 # ── Core call wrappers ────────────────────────────────────────────────────────
 
-# gemini-2.5-flash: the current recommended model for new API users (2026)
-MODEL = "gemini-2.5-flash"
+# gemini-2.0-flash: stable model with full function-calling support
+MODEL = "gemini-2.0-flash"
 
 
 def simple_call(prompt: str) -> str:
@@ -79,7 +79,7 @@ def create_agent_chat(tools: list, system_instruction: str) -> object:
     conversation history is preserved across rerenders within a session.
     """
     client = _get_client()
-    return client.chats.create(
+    chat = client.chats.create(
         model=MODEL,
         config=types.GenerateContentConfig(
             tools=tools,
@@ -90,3 +90,7 @@ def create_agent_chat(tools: list, system_instruction: str) -> object:
             ),
         ),
     )
+    # Keep a strong reference to the client on the chat object so Python's GC
+    # doesn't close the underlying HTTP connection while the chat is in use.
+    chat._parent_client_ref = client
+    return chat
