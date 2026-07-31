@@ -8,6 +8,13 @@ __pycache__/
 *.pyd
 .env
 
+# Virtual environments
+.venv/
+venv/
+
+# pytest
+.pytest_cache/
+
 # Large data files — downloaded by setup_data.py at runtime
 Skills.txt
 Occupation Data.txt
